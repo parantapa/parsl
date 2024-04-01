@@ -256,14 +256,14 @@ def monitor(pid: int,
 
             d['psutil_process_memory_virtual'] += child.memory_info().vms
             d['psutil_process_memory_resident'] += child.memory_info().rss
-            try:
-                d['psutil_process_disk_write'] += child.io_counters().write_chars
-                d['psutil_process_disk_read'] += child.io_counters().read_chars
-            except Exception:
-                # occassionally pid temp files that hold this information are unvailable to be read so add zero
-                logging.exception("Exception reading IO counters for child {k}. Recorded IO usage may be incomplete".format(k=k), exc_info=True)
-                d['psutil_process_disk_write'] += 0
-                d['psutil_process_disk_read'] += 0
+            # try:
+            #     d['psutil_process_disk_write'] += child.io_counters().write_chars
+            #     d['psutil_process_disk_read'] += child.io_counters().read_chars
+            # except Exception:
+            #     # occassionally pid temp files that hold this information are unvailable to be read so add zero
+            #     logging.exception("Exception reading IO counters for child {k}. Recorded IO usage may be incomplete".format(k=k), exc_info=True)
+            #     d['psutil_process_disk_write'] += 0
+            #     d['psutil_process_disk_read'] += 0
 
         total_children_user_time = 0.0
         for child_pid in children_user_time:
